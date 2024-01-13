@@ -1,0 +1,21 @@
+import './index.css'
+
+import { createRoot } from 'react-dom/client'
+import refreshOnUpdate from 'virtual:reload-on-update-in-view'
+
+import Options from './options'
+
+refreshOnUpdate('pages/options')
+
+function init() {
+  const appContainer = document.querySelector('#app-container')
+
+  if (!appContainer) {
+    throw new Error('Can not find #app-container')
+  }
+  const root = createRoot(appContainer)
+
+  root.render(<Options />)
+}
+
+init()
