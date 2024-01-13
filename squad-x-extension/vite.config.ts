@@ -67,12 +67,23 @@ export default defineConfig({
         content: resolve(pagesDir, 'content', 'index.ts'),
         background: resolve(pagesDir, 'background', 'index.ts'),
         contentStyle: resolve(pagesDir, 'content', 'styles.css'),
+        auth: resolve(pagesDir, 'auth', 'index.html'),
         popup: resolve(pagesDir, 'popup', 'index.html'),
         options: resolve(pagesDir, 'options', 'index.html'),
       },
       output: {
         entryFileNames: 'src/pages/[name]/index.js',
+        // entryFileNames: fileName => {
+        //   const { name } = path.parse(fileName.name)
+
+        //   if (name === 'auth') {
+        //     return `${name}/index.js`
+        //   }
+
+        //   return `src/pages/${name}/index.js`
+        // },
         chunkFileNames: isDev ? 'assets/js/[name].js' : 'assets/js/[name].[hash].js',
+
         assetFileNames: assetInfo => {
           const { name } = path.parse(assetInfo.name)
           const assetFileName = name === 'contentStyle' ? `${name}${getCacheInvalidationKey()}` : name
