@@ -1,0 +1,8 @@
+{
+  "name": "squad-x",
+  "version": "0.0.1",
+  "description": "SquadX",
+  "scripts": {
+    "dev:ext": "cd squad-x-extension && bun dev"
+  }
+}
