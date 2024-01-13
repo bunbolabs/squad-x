@@ -36,6 +36,7 @@
     "react-dom": "18.2.0",
     "tailwind-merge": "^2.2.0",
     "three": "^0.160.0",
+    "use-chrome-storage": "^1.2.2",
     "webextension-polyfill": "0.10.0",
     "zustand": "^4.4.7"
   },

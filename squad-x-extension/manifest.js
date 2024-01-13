@@ -31,6 +31,9 @@ const manifest = {
       matches: ['*://*/*'],
     },
   ],
+  externally_connectable: {
+    matches: ['<all_urls>'],
+  },
   oauth2: {
     client_id: '309275893654-q01tdbcfi3opbipi5urvbfml1hj6ck90.apps.googleusercontent.com',
     scopes: ['https://www.googleapis.com/auth/userinfo.email'],
