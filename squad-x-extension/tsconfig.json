@@ -25,6 +25,7 @@
       "@/types/*": ["./src/shared/types/*"],
       "@/features/*": ["./src/shared/components/features/*"],
       "@/assets/*": ["./src/assets/*"],
+      "@/*": ["./src/*"],
       "virtual:reload-on-update-in-background-script": ["./src/global.d.ts"],
       "virtual:reload-on-update-in-view": ["./src/global.d.ts"]
     }

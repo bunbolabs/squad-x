@@ -5,7 +5,7 @@ import refreshOnUpdate from 'virtual:reload-on-update-in-view'
 
 import Options from './options'
 
-refreshOnUpdate('pages/options')
+process.env.__DEV__ === 'true' && refreshOnUpdate('pages/options')
 
 function init() {
   const appContainer = document.querySelector('#app-container')

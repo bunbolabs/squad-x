@@ -5,7 +5,7 @@ import App from '@/pages/content/ui/app'
 
 import injectedStyle from './injected.css?inline'
 
-refreshOnUpdate('pages/content')
+process.env.__DEV__ === 'true' && refreshOnUpdate('pages/content')
 
 const root = document.createElement('div')
 
