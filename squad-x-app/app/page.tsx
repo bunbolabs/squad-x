@@ -3,6 +3,8 @@
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useEffect, useState } from 'react'
 import { Rettiwt } from 'rettiwt-api'
+import { SessionProvider, signIn, signOut } from 'next-auth/react'
+import User from './user'
 
 export default function Home() {
   const { publicKey } = useWallet()
@@ -12,6 +14,8 @@ export default function Home() {
     logging: true,
     proxyUrl: new URL('https://cors-anywhere.herokuapp.com/'),
   })
+
+  // const { data: session, status } = useSession()
 
   const send = (data: string) => {
     window.postMessage({ type: 'FROM_PAGE', data }, '*')
@@ -38,8 +42,31 @@ export default function Home() {
   }
 
   return (
-    <main>
-      <button onClick={get}>Get</button>
-    </main>
+    <SessionProvider>
+      <main>
+        <button onClick={get}>Get</button>
+
+        <button>
+          <a className="button__login" href="/api/auth/login">
+            Log In
+          </a>
+        </button>
+
+        <div>
+          <button onClick={() => signIn()}>Sign in</button>
+          <button onClick={() => signOut()}>Sign out</button>
+        </div>
+
+        <div>
+          <a
+            href={`https://twitter.com/i/oauth2/authorize?response_type=code&client_id=NHVHRWhiaGVaWDN4UUlFd2J4MlA6MTpjaQ&redirect_uri=http://localhost:3000/login/callback&scope=tweet.read%20users.read%20offline.access&state=state&code_challenge=challenge&code_challenge_method=plain`}
+          >
+            Sign out
+          </a>
+        </div>
+
+        <User />
+      </main>
+    </SessionProvider>
   )
 }

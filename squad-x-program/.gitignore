@@ -169,7 +169,4 @@ dist
 .pnp.\*
 
 
-program/target
-.program\target\*
-
-program/target/*
+/program/target

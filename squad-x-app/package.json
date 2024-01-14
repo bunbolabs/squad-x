@@ -11,6 +11,9 @@
     "db:push": "drizzle-kit push:pg"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
+    "@kinde-oss/kinde-auth-nextjs": "^2.1.0",
+    "@kinde-oss/kinde-auth-react": "^3.0.23",
     "@particle-network/auth": "^1.2.2",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
@@ -23,6 +26,7 @@
     "lucide-react": "^0.309.0",
     "net": "^1.0.2",
     "next": "14.0.4",
+    "next-auth": "^4.24.5",
     "postgres": "^3.4.3",
     "react": "^18",
     "react-dom": "^18",
