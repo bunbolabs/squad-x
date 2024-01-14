@@ -21,12 +21,16 @@
     "clsx": "^2.1.0",
     "drizzle-orm": "^0.29.3",
     "lucide-react": "^0.309.0",
+    "net": "^1.0.2",
     "next": "14.0.4",
     "postgres": "^3.4.3",
     "react": "^18",
     "react-dom": "^18",
+    "rettiwt-api": "^2.4.2",
     "tailwind-merge": "^2.2.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "tls": "^0.0.1",
+    "twitter-api-v2": "^1.15.2"
   },
   "devDependencies": {
     "@types/node": "^20",

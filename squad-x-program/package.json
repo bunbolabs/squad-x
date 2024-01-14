@@ -1,0 +1,14 @@
+{
+  "name": "squad-x-program",
+  "version": "0.0.1",
+  "description": "SquadX",
+  "scripts": {
+    "clear": "rimraf ./program",
+    "gen:anchor": "bun clear && codigo/codigo_amd64 solana generate ./cidl.yaml -a",
+    "gen:anchor:p": "codigo/codigo_amd64 solana generate ./cidl.yaml -a -p",
+    "gen:anchor:c": "codigo/codigo_amd64 solana generate ./cidl.yaml -a -c"
+  },
+  "dependencies": {
+    "rimraf": "^5.0.5"
+  }
+}
