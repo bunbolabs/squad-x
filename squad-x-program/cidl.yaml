@@ -1,66 +1,149 @@
 cidl: '0.8'
 info:
-  name: budget_tracker
-  title: Budget Tracker
-  version: 0.0.1
+  name: squad_x
+  title: Squad X
+  version: 0.0.3
   summary: |-
     The purpose of this contract is to track the income and outcome of a given user. For this contract, we are going to 
     target the Solana blockchain. Thus, we define the data structure **Record** that will be transpile to a PDA Account 
     base on the seeds defined in the solana extension. In addition, the contract defines three methods, also known as 
     instruction; through this method, we add behavior.
 
-    Some useful links:
-
-      - [Blockchain Extensions](https://docs.codigo.ai/category/blockchain-extensions)
-      - [Learning the Basics](https://docs.codigo.ai/código-interface-description-language/learning-the-basics)
-      - [Building Solana Programs with CIDL: A Comprehensive Guide Part I](https://docs.codigo.ai/guides/part-1-building-solana-programs)
   contact:
-    name: Código
-    web: https://codigo.ai
-    email: support@codigo.ai
-    git: https://github.com/Codigo-io/platform
+    name: SquadX
+    git: https://github.com/bunbolabs/squad-x
   license:
     name: MIT
     url: https://opensource.org/license/mit
+
 types:
-  Record:
-    summary: Through this data structure we will store the relevant information to track the income and outcome of a given user.
+  User:
+    summary: User data structure
     solana:
       owner: self
       seeds:
-        - name: record
+        - name: 'USER'
         - name: signer
           type: sol:pubkey
     fields:
-      - name: name
+      - name: display_name
         type: string
         solana:
-          attributes: [cap:50]
-        description: The name of the user.
-      # TODO: 1 - Complete the definition of the Record data structure
-      # Add the following fields
-      #   - moves of type u16
-      #   - outcome of type u32
-      #   - income of type u32
-      #   - total_balance of type i64
+          attributes: [cap:36]
+
+      - name: xp
+        type: u16
+        description: The user's XP.
+
+      - name: badge
+        type: string
+        description: The user's badge.
+        solana:
+          attributes: [cap:96]
+
+      - name: avatar
+        type: sol:pubkey
+        description: Reference to user's Avatar account.
+
+      - name: squad
+        type: sol:pubkey
+        description: Reference to user's Squad account.
+
+  Avatar:
+    summary: Avatar data structure.
+    solana:
+      seeds:
+        - name: 'AVATAR'
+        - name: user
+          type: sol:pubkey
+
+    fields:
+      - name: damage
+        type: u8
+
+      - name: energy
+        type: u8
+
+      - name: xp
+        type: u16
+
+      - name: authority
+        type: sol:pubkey
+        description: The authority of the avatar.
+
+  Squad:
+    summary: Squad data structure.
+    solana:
+      seeds:
+        - name: 'SQUAD'
+        - name: user
+          type: sol:pubkey
+
+    fields:
+      - name: display_name
+        type: string
+        solana:
+          attributes: [cap:36]
+
+      - name: motto
+        type: string
+        solana:
+          attributes: [cap:255]
+
+      - name: members
+        type: u16
+
+      - name: xp
+        type: u16
+
+      - name: badge
+        type: string
+        description: The user's badge.
+        solana:
+          attributes: [cap:96]
+
+      - name: authority
+        type: sol:pubkey
+        description: The authority of the squad.
+
 methods:
-  - name: create_user_record
-    summary: To call once per account. Initialize a Record account. The total_balance of the account will be set to 0.
+  - name: create_user_account
+    summary: Create new user account.
     inputs:
-      - name: user_record
-        type: Record
+      - name: user
+        type: User
         solana:
-          attributes: [init_if_needed]
-      - name: user_name
+          attributes: [init]
+
+      - name: display_name
         type: string
-        description: The username to be assigned to the Record.name property
 
-  # TODO: 2 - Define the register_income method
-  #  - Add the following inputs
-  #  - record of type Record, and the attribute mut
-  #  - amount of type u32
+  - name: create_avatar_account
+    summary: Create new avatar account.
+    inputs:
+      - name: author
+        type: User
+      - name: avatar
+        type: Avatar
+        solana:
+          attributes: [init]
+          seeds:
+            user: author
 
-  # TODO: 3 - Define the register_outcome method
-  #  - Add the following inputs
-  #  - record of type Record, and the attribute mut
-  #  - amount of type u32
+  - name: create_squad_account
+    summary: Create new squad account.
+    inputs:
+      - name: author
+        type: User
+      - name: squad
+        type: Squad
+        solana:
+          attributes: [init]
+          seeds:
+            user: author
+
+      - name: display_name
+        type: string
+
+      - name: motto
+        type: string

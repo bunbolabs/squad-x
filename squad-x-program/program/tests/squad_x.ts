@@ -1,5 +1,5 @@
 import * as anchor from "@coral-xyz/anchor";
-import * as budgetTrackerClient from "../client/budget_tracker";
+import * as squadXClient from "../client/squad_x";
 import chai from "chai";
 import { assert, expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
