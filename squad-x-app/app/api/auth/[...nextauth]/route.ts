@@ -1,11 +1,13 @@
+// @ts-nocheck
+
 import NextAuth from 'next-auth'
 import TwitterProvider from 'next-auth/providers/twitter'
 
 const handler = NextAuth({
   providers: [
     TwitterProvider({
-      clientId: 'kvGGQH11NdwCPN3CZbF6Jjt3u',
-      clientSecret: '9PAVbr6YUujhDA4ZMxQV7afHxWNcwxgAfHVgxD9dXlYal8LeaC',
+      clientId: process.env.X_CLIENT_ID,
+      clientSecret: process.env.X_CLIENT_SECRET,
     }),
   ],
   callbacks: {
