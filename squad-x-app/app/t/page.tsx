@@ -1,9 +1,20 @@
+'use client'
+
 import React from 'react'
-import { getFollowers } from '@/app/actions/get-followers'
-import { useSession, signIn, signOut } from 'next-auth/react'
 
-export default async function Page() {
-  await getFollowers()
+export default function Page() {
+  const getData = async () => {
+    const res = await fetch('/api/x', {
+      method: 'POST',
+    })
 
-  return <div></div>
+    const data = await res.json()
+    console.log(data)
+  }
+
+  return (
+    <div>
+      <button onClick={getData}>Get data</button>
+    </div>
+  )
 }
