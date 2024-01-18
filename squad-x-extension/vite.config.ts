@@ -18,7 +18,7 @@ const hooksDir = resolve(sharedDir, 'hooks')
 const storesDir = resolve(sharedDir, 'stores')
 const typesDir = resolve(sharedDir, 'types')
 const servicesDir = resolve(sharedDir, 'services')
-const featuresDir = resolve(componentsDir, 'features')
+const featuresDir = resolve(sharedDir, 'features')
 const outDir = resolve(rootDir, 'dist')
 const publicDir = resolve(rootDir, 'public')
 

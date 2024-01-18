@@ -23,7 +23,7 @@
       "@/hooks/*": ["./src/shared/hooks/*"],
       "@/stores/*": ["./src/shared/stores/*"],
       "@/types/*": ["./src/shared/types/*"],
-      "@/features/*": ["./src/shared/components/features/*"],
+      "@/features/*": ["./src/shared/features/*"],
       "@/assets/*": ["./src/assets/*"],
       "@/*": ["./src/*"],
       "virtual:reload-on-update-in-background-script": ["./src/global.d.ts"],

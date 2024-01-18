@@ -5,7 +5,8 @@ import refreshOnUpdate from 'virtual:reload-on-update-in-view'
 
 import Popup from './popup'
 
-process.env.__DEV__ === 'true' && refreshOnUpdate('pages/popup')
+// process.env.__DEV__ === 'true' && refreshOnUpdate('pages/popup')
+refreshOnUpdate('pages/popup')
 
 function init() {
   const appContainer = document.querySelector('#app-container')
