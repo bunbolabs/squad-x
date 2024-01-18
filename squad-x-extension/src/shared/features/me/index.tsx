@@ -16,7 +16,9 @@ export default function Me() {
             <span className="text-base font-semibold text-[#16120F]">@{user.screenName}</span>
             <span className="text-xs font-medium text-[#A7A6A2]">{formatAddress(user.address)}</span>
           </div>
-          <Avatar src={user.picture} />
+          <div className="flex items-center gap-1">
+            <Avatar src={user.picture} />
+          </div>
         </>
       ) : null}
     </div>

@@ -2,6 +2,7 @@ import clsx from 'clsx'
 
 // import { Plus } from 'lucide-react'
 import Balance from './balance'
+import DinoZone from './dino-zone'
 
 export default function Squad() {
   return (
@@ -41,6 +42,8 @@ export default function Squad() {
         </div>
 
         <Balance />
+
+        <DinoZone />
       </div>
 
       {/* <button className=" mt-4 flex h-[92px] flex-col items-center justify-center rounded-2xl bg-[#E6D6FF] text-[#16120F]">

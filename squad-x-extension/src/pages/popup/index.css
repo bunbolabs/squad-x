@@ -14,3 +14,46 @@
   width: 0px;
   height: 0px;
 }
+
+.dino {
+  image-rendering: pixelated;
+}
+
+.dino-idle {
+  animation: idle 0.5s steps(4) infinite;
+}
+
+.dino-walk {
+  animation: walk 0.5s steps(6) infinite;
+}
+
+.dino-run {
+  animation: run 0.5s steps(7) infinite;
+}
+
+@keyframes idle {
+  from {
+    background-position: 0px;
+  }
+  to {
+    background-position: -96px;
+  }
+}
+
+@keyframes walk {
+  from {
+    background-position: -96px;
+  }
+  to {
+    background-position: -240px;
+  }
+}
+
+@keyframes run {
+  from {
+    background-position: -408px;
+  }
+  to {
+    background-position: -576px;
+  }
+}
