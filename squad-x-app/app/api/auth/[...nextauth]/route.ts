@@ -33,6 +33,10 @@ const handler = NextAuth({
 
       return data
     },
+
+    pages: {
+      signIn: '/api/auth/signin',
+    },
   },
 })
 

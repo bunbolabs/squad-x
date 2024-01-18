@@ -1,13 +1,19 @@
+import { computeXURL } from '@/shared/utils'
+
 export default function Friend() {
+  const openX = (handle: string) => {
+    chrome.tabs.create({ url: computeXURL(handle) })
+  }
+
   return (
     <div className="p-5 pt-0">
       <span className="text-sm font-semibold text-[#16120F]">Friends</span>
-      <section className="mt-4">
+      <section className="mt-4 flex flex-col gap-4 pb-16">
         {Array(10)
           .fill(0)
           .map((_, index) => (
-            <div key={index} className="mt-3 select-none">
-              <div className="relative flex h-full items-center gap-[10px]">
+            <div key={index} className="select-none">
+              <button onClick={() => openX('heysonha')} className="relative flex h-full w-full items-center gap-[10px]">
                 <figure className="h-[50px] w-[50px] overflow-hidden rounded-xl">
                   <img
                     alt="Avatar"
@@ -15,7 +21,7 @@ export default function Friend() {
                   />
                 </figure>
 
-                <div className="flex flex-col">
+                <div className="flex flex-col items-start">
                   <span className="text-sx font-semibold text-[#16120F]">@heysonha</span>
                   <span className="text-sm font-normal text-[#A7A6A2]">Son Ha Nguyen</span>
                 </div>
@@ -26,7 +32,7 @@ export default function Friend() {
                 <span className="absolute bottom-0 right-0 rounded-lg bg-[#FFD6AD] px-2 py-0.5 text-sm font-medium text-[#16120F]">
                   123 FP
                 </span>
-              </div>
+              </button>
 
               <div className="mt-3 h-[1px] w-full rounded-xl bg-[#E5E5D6]"></div>
             </div>
