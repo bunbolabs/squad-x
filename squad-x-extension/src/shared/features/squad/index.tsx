@@ -1,15 +1,16 @@
 import clsx from 'clsx'
+import { Plus } from 'lucide-react'
 
 // import { Plus } from 'lucide-react'
-import Balance from './balance'
-import DinoZone from './dino-zone'
+// import Balance from './balance'
+// import DinoZone from './dino-zone'
 
 export default function Squad() {
   return (
     <div className="flex flex-col p-5 pt-0">
       <span className="text-sm font-semibold text-[#16120F]">Squads</span>
 
-      <div className="mt-4 flex select-none flex-col gap-4">
+      {/* <div className="mt-4 flex select-none flex-col gap-4">
         <div className="relative flex h-full items-center gap-[10px]">
           <div className="flex h-[50px] w-[50px] items-center justify-center rounded-xl bg-[#16120F]">
             <span className="text-sm font-semibold text-[#F5F5F0]">#1</span>
@@ -18,9 +19,7 @@ export default function Squad() {
           <div className="flex h-full flex-col justify-between ">
             <div className="flex  gap-1">
               <span className="mb-1 text-xl font-semibold text-[#16120F]">Bonksquads</span>
-              {/* <span className="rounded-lg bg-[#E6D6FF] px-2 py-0.5 text-xs font-medium text-[#16120F]">
-                Best Friends
-              </span> */}
+              
             </div>
             <span className="text-xs font-medium text-[#A7A6A2]">We will never let you down</span>
           </div>
@@ -44,9 +43,9 @@ export default function Squad() {
         <Balance />
 
         <DinoZone />
-      </div>
+      </div> */}
 
-      {/* <button className=" mt-4 flex h-[92px] flex-col items-center justify-center rounded-2xl bg-[#E6D6FF] text-[#16120F]">
+      <button className=" mt-4 flex h-[92px] flex-col items-center justify-center rounded-2xl bg-[#E6D6FF] text-[#16120F]">
         <Plus width={20} />
         <span className=" mt-1 text-sm font-medium">Create Squads</span>
       </button>
@@ -93,7 +92,7 @@ export default function Squad() {
               <div className="mt-3 h-[1px] w-full rounded-xl bg-[#E5E5D6]"></div>
             </div>
           ))}
-      </section> */}
+      </section>
     </div>
   )
 }

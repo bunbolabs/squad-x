@@ -9,3 +9,7 @@ export function computeXURL(handle: string) {
 export function computeAppURL(url: string) {
   return `http://localhost:3000/${url}`
 }
+
+export function computeAssetURL(url: string) {
+  return `https://kzcrnvmbqviqohszvotu.supabase.co/storage/v1/object/public/${url}`
+}

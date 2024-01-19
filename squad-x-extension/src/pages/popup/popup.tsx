@@ -20,7 +20,7 @@ const Popup = () => {
         <Auth />
       ) : (
         <>
-          <Me />
+          <Me info={value} />
           {
             {
               home: <Home />,

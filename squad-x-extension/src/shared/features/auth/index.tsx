@@ -1,16 +1,14 @@
-import { useChromeStorageLocal } from 'use-chrome-storage'
+// import { useChromeStorageLocal } from 'use-chrome-storage'
 
-import { User } from '@/shared/types/user'
+// import { User } from '@/shared/types/user'
 import { computeAppURL } from '@/shared/utils'
 
 export default function Auth() {
-  const [value] = useChromeStorageLocal<User>('SQUAD-X-USER')
+  // const [value] = useChromeStorageLocal<User>('SQUAD-X-USER')
 
   const openAuth = () => {
     chrome.tabs.create({ url: computeAppURL('auth') })
   }
-
-  console.log(value)
 
   return (
     <section className="flex h-screen w-screen items-center justify-center">

@@ -21,6 +21,7 @@
     "@particle-network/auth": "^1.2.2",
     "@react-three/drei": "^9.93.0",
     "@react-three/fiber": "^8.15.13",
+    "@shyft-to/js": "^0.2.33",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.34",

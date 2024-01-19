@@ -7,10 +7,17 @@ export default function User() {
   const { data: session } = useSession()
   const { publicKey } = useWallet()
 
-  useEffect(() => {
+  const send = async () => {
     if (!session || !publicKey) return
 
-    dispatchMessage('SQUAD-X-USER', JSON.stringify({ ...session, address: publicKey.toString() }))
+    const res = await fetch(`/api/x/details?id=${session.screenName}`)
+    const data = await res.json()
+
+    dispatchMessage('SQUAD-X-USER', JSON.stringify({ ...data, address: publicKey.toString() }))
+  }
+
+  useEffect(() => {
+    send()
   }, [session, publicKey])
 
   return (

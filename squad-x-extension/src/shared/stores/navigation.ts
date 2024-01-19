@@ -15,7 +15,7 @@ interface NavigationStore {
 }
 
 export const useNavigationStore = create<NavigationStore>()(set => ({
-  tab: 'squad',
+  tab: 'home',
   setTab: (tab: Tab) => set(state => ({ tab, previousTab: state.tab })),
 
   previousTab: 'home',
