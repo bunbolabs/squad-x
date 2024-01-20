@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
-import { useChromeStorageLocal } from 'use-chrome-storage'
+import { useChromeStorageSync } from 'use-chrome-storage'
 
 import { User } from '@/shared/types/user'
 
 export default function App() {
-  const [, setValue] = useChromeStorageLocal<User>('SQUAD-X-USER')
+  const [, setValue] = useChromeStorageSync<User>('SQUAD-X-USER')
 
   useEffect(() => {
     window.addEventListener('message', function (event) {
@@ -12,6 +12,8 @@ export default function App() {
 
       if (event.data.action && event.data.action == 'SQUAD-X-USER') {
         const user = JSON.parse(event.data.data) as User
+
+        console.log('user', user)
 
         setValue(user)
       }

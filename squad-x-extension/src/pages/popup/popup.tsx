@@ -1,4 +1,4 @@
-import { useChromeStorageLocal } from 'use-chrome-storage'
+import { useChromeStorageSync } from 'use-chrome-storage'
 
 import Friend from '@/features/friend'
 import Home from '@/features/home'
@@ -12,21 +12,21 @@ import { User } from '@/shared/types/user'
 
 const Popup = () => {
   const { tab } = useNavigation()
-  const [user] = useChromeStorageLocal<User>('SQUAD-X-USER')
+  const [value] = useChromeStorageSync<User>('SQUAD-X-USER')
 
   return (
     <div className=" relative min-h-[600px] w-[400px] bg-[#F5F5F0]">
-      {!user ? (
+      {!value ? (
         <Auth />
       ) : (
         <>
-          <Me info={user} />
+          <Me info={value} />
           {
             {
               home: <Home />,
               quest: <Quest />,
               friend: <Friend />,
-              squad: <Squad user={user} />,
+              squad: <Squad user={value} />,
             }[tab]
           }
 
