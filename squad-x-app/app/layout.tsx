@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 import WalletAdapter from '@/components/wallet-adapter'
@@ -14,7 +15,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <WalletAdapter>{children}</WalletAdapter>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <WalletAdapter>{children}</WalletAdapter>
+        </ThemeProvider>
       </body>
     </html>
   )

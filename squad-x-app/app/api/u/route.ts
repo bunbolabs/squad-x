@@ -8,7 +8,5 @@ export async function POST() {
 
   const res = await rettiwt.user.details('heysonha')
 
-  console.log(res)
-
   return Response.json(res)
 }

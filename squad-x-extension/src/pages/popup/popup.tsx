@@ -12,21 +12,21 @@ import { User } from '@/shared/types/user'
 
 const Popup = () => {
   const { tab } = useNavigation()
-  const [value] = useChromeStorageLocal<User>('SQUAD-X-USER')
+  const [user] = useChromeStorageLocal<User>('SQUAD-X-USER')
 
   return (
     <div className=" relative min-h-[600px] w-[400px] bg-[#F5F5F0]">
-      {!value ? (
+      {!user ? (
         <Auth />
       ) : (
         <>
-          <Me info={value} />
+          <Me info={user} />
           {
             {
               home: <Home />,
               quest: <Quest />,
               friend: <Friend />,
-              squad: <Squad />,
+              squad: <Squad user={user} />,
             }[tab]
           }
 

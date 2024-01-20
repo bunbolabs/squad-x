@@ -11,12 +11,12 @@ info:
     url: https://opensource.org/license/mit
 
 types:
-  User:
-    summary: User data structure
+  Users:
+    summary: Users data structure
     solana:
       owner: self
       seeds:
-        - name: 'USER'
+        - name: 'USERS'
         - name: signer
           type: sol:pubkey
     fields:
@@ -35,41 +35,15 @@ types:
         solana:
           attributes: [cap:96]
 
-      - name: avatar
-        type: sol:pubkey
-        description: Reference to user's Avatar account.
-
       - name: squad
         type: sol:pubkey
         description: Reference to user's Squad account.
 
-  Avatar:
-    summary: Avatar data structure.
+  Squads:
+    summary: Squads data structure.
     solana:
       seeds:
-        - name: 'AVATAR'
-        - name: user
-          type: sol:pubkey
-
-    fields:
-      - name: damage
-        type: u8
-
-      - name: energy
-        type: u8
-
-      - name: xp
-        type: u16
-
-      - name: authority
-        type: sol:pubkey
-        description: The authority of the avatar.
-
-  Squad:
-    summary: Squad data structure.
-    solana:
-      seeds:
-        - name: 'SQUAD'
+        - name: 'SQUADS'
         - name: user
           type: sol:pubkey
 
@@ -92,7 +66,7 @@ types:
 
       - name: badge
         type: string
-        description: The user's badge.
+        description: The squad's badge.
         solana:
           attributes: [cap:96]
 
@@ -100,37 +74,47 @@ types:
         type: sol:pubkey
         description: The authority of the squad.
 
+  Quests:
+    summary: Quests data structure.
+
+    fields:
+      - name: name
+        type: string
+        solana:
+          attributes: [cap:255]
+
+      - name: description
+        type: string
+        solana:
+          attributes: [cap:255]
+
+      - name: tag
+        type: string
+        solana:
+          attributes: [cap:32]
+
+      - name: reward
+        type: u16
+
 methods:
   - name: create_user_account
     summary: Create new user account.
     inputs:
       - name: user
-        type: User
+        type: Users
         solana:
           attributes: [init]
 
       - name: display_name
         type: string
 
-  - name: create_avatar_account
-    summary: Create new avatar account.
-    inputs:
-      - name: author
-        type: User
-      - name: avatar
-        type: Avatar
-        solana:
-          attributes: [init]
-          seeds:
-            user: author
-
   - name: create_squad_account
     summary: Create new squad account.
     inputs:
       - name: author
-        type: User
+        type: Users
       - name: squad
-        type: Squad
+        type: Squads
         solana:
           attributes: [init]
           seeds:

@@ -4,6 +4,7 @@
   "description": "Squad X Program",
   "scripts": {
     "clear": "rimraf ./program",
+    "login": "codigo/codigo_amd64 login",
     "generate": "codigo/codigo_amd64 solana generate ./cidl.yaml -a",
     "gen:anchor": "bun clear && bun generate",
     "build:anchor": "cd program && anchor build"

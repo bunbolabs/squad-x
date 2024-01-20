@@ -1,11 +1,17 @@
 import clsx from 'clsx'
 import { Plus } from 'lucide-react'
 
+import { User } from '@/shared/types/user'
+
 // import { Plus } from 'lucide-react'
 // import Balance from './balance'
 // import DinoZone from './dino-zone'
 
-export default function Squad() {
+interface Props {
+  user: User
+}
+
+export default function Squad({ user }: Props) {
   return (
     <div className="flex flex-col p-5 pt-0">
       <span className="text-sm font-semibold text-[#16120F]">Squads</span>

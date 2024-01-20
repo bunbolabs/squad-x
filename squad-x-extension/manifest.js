@@ -6,7 +6,7 @@ import packageJson from './package.json' assert { type: 'json' }
  */
 const manifest = {
   manifest_version: 3,
-  name: 'SquadX',
+  name: 'Squad X',
   version: packageJson.version,
   description: packageJson.description,
   permissions: ['storage', 'identity', 'tabs'],
@@ -17,6 +17,7 @@ const manifest = {
   },
   action: {
     default_popup: 'src/pages/popup/index.html',
+    default_icon: 'icon-34.png',
   },
   content_scripts: [
     {
@@ -34,9 +35,8 @@ const manifest = {
   externally_connectable: {
     matches: ['<all_urls>'],
   },
-  oauth2: {
-    client_id: '309275893654-q01tdbcfi3opbipi5urvbfml1hj6ck90.apps.googleusercontent.com',
-    scopes: ['https://www.googleapis.com/auth/userinfo.email'],
+  icons: {
+    128: 'icon-128.png',
   },
 }
 

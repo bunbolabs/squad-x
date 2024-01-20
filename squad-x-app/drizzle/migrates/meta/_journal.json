@@ -8,6 +8,20 @@
       "when": 1705177970965,
       "tag": "0000_gigantic_magneto",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1705707864654,
+      "tag": "0001_pink_sway",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1705707880498,
+      "tag": "0002_cuddly_onslaught",
+      "breakpoints": true
     }
   ]
 }
