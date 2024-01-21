@@ -1,6 +1,6 @@
 import clsx from 'clsx'
-import { Plus } from 'lucide-react'
 
+import CreateSquad from '@/shared/components/create-squad'
 import { User } from '@/shared/types/user'
 
 // import { Plus } from 'lucide-react'
@@ -51,10 +51,7 @@ export default function Squad({ user }: Props) {
         <DinoZone />
       </div> */}
 
-      <button className=" mt-4 flex h-[92px] flex-col items-center justify-center rounded-2xl bg-[#E6D6FF] text-[#16120F]">
-        <Plus width={20} />
-        <span className=" mt-1 text-sm font-medium">Create Squads</span>
-      </button>
+      <CreateSquad />
 
       <section className="mt-2 pb-16">
         {Array(10)
@@ -62,7 +59,11 @@ export default function Squad({ user }: Props) {
           .map((_, index) => (
             <div key={index} className="mt-3 select-none">
               <div className="relative flex h-full items-center gap-[10px]">
-                <div className="flex h-[50px] w-[50px] items-center justify-center rounded-xl bg-[#16120F]">
+                <div
+                  className="flex h-[50px] w-[50px] items-center justify-center rounded-xl bg-[#16120F] bg-center"
+                  style={{
+                    background: `url(https://source.boringavatars.com/marble/120/${Date.now()}?colors=264653,2a9d8f,e9c46a,f4a261,e76f51&square=true)`,
+                  }}>
                   <span className="text-sm font-semibold text-[#F5F5F0]">#{index + 1}</span>
                 </div>
 

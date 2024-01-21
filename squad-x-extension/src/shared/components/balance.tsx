@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useChromeStorageLocal } from 'use-chrome-storage'
+import { useChromeStorageSync } from 'use-chrome-storage'
 
 import { shyft } from '@/services/shyft'
 import { SQUAD_X_TOKEN_MINT } from '@/shared/constants'
@@ -9,7 +9,7 @@ import { User } from '@/shared/types/user'
 
 export default function Balance() {
   const [balance, setBalance] = useState<number>(0)
-  const [user] = useChromeStorageLocal<User>('SQUAD-X-USER')
+  const [user] = useChromeStorageSync<User>('SQUAD-X-USER')
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {

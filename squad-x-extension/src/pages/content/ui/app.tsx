@@ -13,8 +13,6 @@ export default function App() {
       if (event.data.action && event.data.action == 'SQUAD-X-USER') {
         const user = JSON.parse(event.data.data) as User
 
-        console.log('user', user)
-
         setValue(user)
       }
     })

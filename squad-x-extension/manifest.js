@@ -9,7 +9,7 @@ const manifest = {
   name: 'Squad X',
   version: packageJson.version,
   description: packageJson.description,
-  permissions: ['storage', 'identity', 'tabs'],
+  permissions: ['storage', 'identity', 'tabs', 'http://fonts.googleapis.com/', 'https://fonts.googleapis.com/'],
   options_page: 'src/pages/options/index.html',
   background: {
     service_worker: 'src/pages/background/index.js',
