@@ -1,7 +1,7 @@
 import { useWallet } from '@solana/wallet-adapter-react'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { signIn, useSession } from 'next-auth/react'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { dispatchMessage } from '@/utils'
 
@@ -20,17 +20,38 @@ export default function SignInX() {
   const { publicKey } = useWallet()
   const { data: session } = useSession()
 
-  const send = async () => {
+  const [status, setStatus] = useState('')
+
+  const handle = async () => {
     if (!session || !publicKey) return
 
     const res = await fetch(`/api/x/details?id=${(session as any).screenName}`)
     const data = await res.json()
 
-    dispatchMessage('SQUAD-X-USER', JSON.stringify({ ...data, address: publicKey.toString() }))
+    setStatus('Catching a Dino...')
+
+    const mintRes = await fetch(`/api/dino/mint`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ destination: publicKey.toString() }),
+    })
+
+    const mintData = await mintRes.json()
+
+    console.log(mintData)
+
+    if (mintData) {
+      dispatchMessage('SQUAD-X-USER', JSON.stringify({ ...data, address: publicKey.toString() }))
+      setStatus('All set 🎉!')
+    } else {
+      setStatus('Failed to catching')
+    }
   }
 
   useEffect(() => {
-    send()
+    handle()
   }, [session, publicKey])
 
   return (
@@ -52,7 +73,7 @@ export default function SignInX() {
           )}
         </AnimatePresence>
       ) : (
-        <span>All set 🎉!</span>
+        <span>{status}</span>
       )}
     </>
   )
