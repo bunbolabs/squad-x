@@ -1,52 +1,58 @@
 import {
-  MPL_INSCRIPTION_PROGRAM_ID,
   allocate,
+  fetchInscriptionShard,
   findAssociatedInscriptionPda,
   findInscriptionMetadataPda,
-  initialize,
+  findInscriptionShardPda,
+  findMintInscriptionPda,
   initializeAssociatedInscription,
-  mplInscription,
+  initializeFromMint,
   writeData,
 } from '@metaplex-foundation/mpl-inscription'
-import { TransactionBuilder, generateSigner, keypairIdentity } from '@metaplex-foundation/umi'
-import { createUmi } from '@metaplex-foundation/umi-bundle-defaults'
+import { fetchDigitalAsset } from '@metaplex-foundation/mpl-token-metadata'
+import { TransactionBuilder } from '@metaplex-foundation/umi'
 import { PublicKey } from '@solana/web3.js'
-import { decode } from 'bs58'
-const fs = require('fs')
-
-const ENDPOINT = 'https://devnet-rpc.shyft.to?api_key=mODmQtBi3ONsDMgc'
-
-const umi = createUmi(ENDPOINT).use(mplInscription())
-const uintSecret = decode('4pqR8ghxC9AGuUwiaP2cyZppgcTBzRLgtGU4XseysrnXE27jh2xtnNQR4K1Ne5Yg7xHbdU7i3bMyEDRVaF9fCNeJ')
+import fs from 'fs'
+import { createUmi } from './0. setup'
 
 const handle = async () => {
-  const keypair = umi.eddsa.createKeypairFromSecretKey(uintSecret)
-  umi.use(keypairIdentity(keypair))
+  console.log('1. Create Instance of UMI')
+  const umi = await createUmi()
 
-  console.log('1. Initializing Inscription')
+  const mint = new PublicKey('G9cUwZKW2mWtWyGBtfXj8dWUigNvZXRH3orXGcZsv56N')
 
-  const inscriptionAccount = generateSigner(umi)
-  // const inscriptionAccount = new PublicKey('BpWnLr2bPZMqkZAzBVM3Fuy691PV1rRD3X4yT1m4NDyw')
+  console.log('2. Fetch nft')
+  const asset = await fetchDigitalAsset(umi, mint)
+  console.log('MINT: ', asset.publicKey.toString())
 
+  console.log('3. Initialize Inscription account')
+
+  const inscriptionAccount = findMintInscriptionPda(umi, {
+    mint: asset.publicKey,
+  })
   const inscriptionMetadataAccount = await findInscriptionMetadataPda(umi, {
-    inscriptionAccount: inscriptionAccount.publicKey,
+    inscriptionAccount: inscriptionAccount[0],
   })
 
-  // const inscriptionMetadataAccount = new PublicKey('BpWnLr2bPZMqkZAzBVM3Fuy691PV1rRD3X4yT1m4NDyw')
+  const inscriptionShardAccount = findInscriptionShardPda(umi, {
+    shardNumber: 0,
+  })
 
+  const shardDataBefore = await fetchInscriptionShard(umi, inscriptionShardAccount)
+
+  console.log('inscriptionAccount', inscriptionAccount)
+  console.log('inscriptionMetadataAccount', inscriptionMetadataAccount)
+  console.log('inscriptionShardAccount', inscriptionShardAccount)
+
+  console.log('4. Initializing Inscription')
   let builder = new TransactionBuilder()
 
-  // When we create a new account.
-  // builder = builder.add(
-  //   initialize(umi, {
-  //     inscriptionAccount,
-  //   })
-  // )
-
-  const associatedInscriptionAccount = findAssociatedInscriptionPda(umi, {
-    associated_tag: 'image',
-    inscriptionMetadataAccount,
-  })
+  builder = builder.add(
+    initializeFromMint(umi, {
+      mintAccount: asset.publicKey,
+      inscriptionShardAccount,
+    })
+  )
 
   builder = builder.add(
     initializeAssociatedInscription(umi, {
@@ -55,10 +61,15 @@ const handle = async () => {
     })
   )
 
-  console.log('1.1. Signing and sending the transaction')
+  console.log('5. Signing and sending the transaction')
   await builder.sendAndConfirm(umi, { confirm: { commitment: 'finalized' } })
 
-  console.log('2. Upload image')
+  const associatedInscriptionAccount = findAssociatedInscriptionPda(umi, {
+    associated_tag: 'image',
+    inscriptionMetadataAccount,
+  })
+
+  console.log('6. Upload image')
   const imageBytes: Buffer = await fs.promises.readFile('/Users/ha.nguyen/bunbolabs/squad-x/squad-x-tools/doux.jpg')
   const resizes = Math.floor(imageBytes.length / 10240) + 1
   for (let i = 0; i < resizes; i += 1) {
@@ -71,13 +82,11 @@ const handle = async () => {
     }).sendAndConfirm(umi)
   }
 
-  console.log('3. Get sized account')
+  console.log('7. Get sized account')
   const sizedAccount = await umi.rpc.getAccount(associatedInscriptionAccount[0])
-  // if (sizedAccount.exists) {
-  //   console.log(JSON.stringify(sizedAccount.data.length))
-
-  //   // t.is(sizedAccount.data.length, imageBytes.length)
-  // }
+  if (sizedAccount.exists) {
+    console.log(sizedAccount.data.length)
+  }
 
   // And set the value.
   const promises = []
@@ -103,14 +112,6 @@ const handle = async () => {
   if (imageData.exists) {
     console.log(imageData.publicKey.toString())
     console.log(imageData.owner.toString())
-
-    // console.log(JSON.stringify(imageData))
-
-    // t.deepEqual(Buffer.from(imageData.data), imageBytes)
-
-    // t.like(imageData, {
-    //   owner: MPL_INSCRIPTION_PROGRAM_ID,
-    // })
   }
 }
 

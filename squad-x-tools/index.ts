@@ -1,40 +1,18 @@
 import {
-  createSignerFromKeypair,
-  generateSigner,
-  keypairIdentity,
-  percentAmount,
-  signerIdentity,
-} from '@metaplex-foundation/umi'
-import { Umi } from '@metaplex-foundation/umi'
-import pMap from 'p-map'
-import {
-  TokenStandard,
-  createNft,
-  createV1,
-  fetchDigitalAsset,
-  mintV1,
-  mplTokenMetadata,
-} from '@metaplex-foundation/mpl-token-metadata'
-import {
-  AssociatedInscription,
-  DataType,
-  InscriptionMetadata,
-  Key,
-  MPL_INSCRIPTION_PROGRAM_ID,
-  fetchInscriptionMetadata,
+  createShard,
   fetchInscriptionShard,
   findInscriptionMetadataPda,
+  findInscriptionShardPda,
   findMintInscriptionPda,
   initializeFromMint,
   mplInscription,
-  createShard,
-  findInscriptionShardPda,
   safeFetchInscriptionShard,
 } from '@metaplex-foundation/mpl-inscription'
+import { createNft, mplTokenMetadata } from '@metaplex-foundation/mpl-token-metadata'
+import { Umi, generateSigner, keypairIdentity, percentAmount } from '@metaplex-foundation/umi'
 import { createUmi as basecreateUmi } from '@metaplex-foundation/umi-bundle-defaults'
-import { Keypair, PublicKey } from '@solana/web3.js'
 import { decode } from 'bs58'
-import { fromWeb3JsKeypair } from '@metaplex-foundation/umi-web3js-adapters'
+import pMap from 'p-map'
 
 const uintSecret = decode('4pqR8ghxC9AGuUwiaP2cyZppgcTBzRLgtGU4XseysrnXE27jh2xtnNQR4K1Ne5Yg7xHbdU7i3bMyEDRVaF9fCNeJ')
 
@@ -63,7 +41,7 @@ const handle = async () => {
   // const nftMint = await fetchDigitalAsset(umi, new PublicKey('FokHKCYSVCbN5PeGQi6574ioF2p3SG4ySZNEd9SYwvWP'))
 
   console.log('3. Creating Inscription')
-  const inscriptionAccount = await findMintInscriptionPda(umi, {
+  const inscriptionAccount = await findInscriptionMetadataPda(umi, {
     mint: nftMint.publicKey,
   })
   const inscriptionMetadataAccount = await findInscriptionMetadataPda(umi, {
