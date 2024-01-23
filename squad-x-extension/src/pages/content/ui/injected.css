@@ -1,2 +1,16 @@
-.full-screen {
+.injected {
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+}
+
+.claimable-items {
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  position: fixed;
+  z-index: 100000;
 }

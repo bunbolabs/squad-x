@@ -1,22 +1,30 @@
-import { useEffect } from 'react'
-import { useChromeStorageSync } from 'use-chrome-storage'
+import './injected.css'
 
-import { User } from '@/shared/types/user'
+import { useEffect, useState } from 'react'
+
+import { SOLANA_ECOSYSTEMS } from '@/shared/constants'
+
+import ClaimableItems from './claimable-items'
+import MessageManager from './message-manager'
 
 export default function App() {
-  const [, setValue] = useChromeStorageSync<User>('SQUAD-X-USER')
+  const [available, setAvailable] = useState(false)
 
   useEffect(() => {
-    window.addEventListener('message', function (event) {
-      if (event.source != window) return
+    const url = window.location.origin
 
-      if (event.data.action && event.data.action == 'SQUAD-X-USER') {
-        const user = JSON.parse(event.data.data) as User
+    // console.log(url)
 
-        setValue(user)
-      }
-    })
+    if (SOLANA_ECOSYSTEMS.includes(url)) {
+      setAvailable(true)
+    }
   }, [])
 
-  return <div className="full-screen"></div>
+  return (
+    <div className="injected">
+      <MessageManager />
+
+      {available && <ClaimableItems />}
+    </div>
+  )
 }
