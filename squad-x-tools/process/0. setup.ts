@@ -11,7 +11,14 @@ import { decode } from 'bs58'
 import pMap from 'p-map'
 
 const ENDPOINT = 'https://devnet-rpc.shyft.to?api_key=mODmQtBi3ONsDMgc'
-const SECRET = decode('54DRp1AzmPDRKoUdisauCESpZcEP2mn4kzdyTLSpuzKVMNjmBJbXjF4BczzAkwJP8QSrLGTtmmuE6LbKXXDq5WQH')
+
+const SECRET = decode('4pqR8ghxC9AGuUwiaP2cyZppgcTBzRLgtGU4XseysrnXE27jh2xtnNQR4K1Ne5Yg7xHbdU7i3bMyEDRVaF9fCNeJ')
+// 6aMeb9AZU8cRrhsrL8Qt5hnzCaodZM1aZPU4tPxFrBKU
+// const SECRET = new Uint8Array([
+//   132, 175, 156, 42, 253, 100, 44, 186, 163, 145, 6, 187, 90, 238, 154, 66, 65, 254, 29, 29, 78, 166, 226, 159, 28, 60,
+//   63, 241, 171, 139, 193, 121, 39, 213, 89, 185, 0, 52, 3, 34, 44, 26, 42, 11, 157, 156, 121, 195, 148, 200, 182, 75,
+//   48, 175, 52, 92, 188, 196, 151, 98, 228, 46, 128, 104,
+// ])
 
 export const createUmi = async () => {
   const umi = basecreateUmi(ENDPOINT).use(mplInscription())

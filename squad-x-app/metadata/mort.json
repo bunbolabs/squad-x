@@ -1,0 +1,18 @@
+{
+  "name": "MORT",
+  "description": "Mort mort mort mort mort!",
+  "image": "https://kzcrnvmbqviqohszvotu.supabase.co/storage/v1/object/public/dinos/mort.jpg",
+  "symbol": "DINO",
+  "attributes": [
+    [
+      {
+        "trait_type": "damage",
+        "value": "100"
+      },
+      {
+        "trait_type": "energy",
+        "value": "80"
+      }
+    ]
+  ]
+}

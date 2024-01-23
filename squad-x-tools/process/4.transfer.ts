@@ -1,9 +1,16 @@
-import { createNft, transferV1 } from '@metaplex-foundation/mpl-token-metadata'
+import {
+  TokenStandard,
+  createNft,
+  delegateAuthorityItemV1,
+  transferV1,
+  updateAsAuthorityItemDelegateV2,
+} from '@metaplex-foundation/mpl-token-metadata'
 import { generateSigner, percentAmount } from '@metaplex-foundation/umi'
 import { File, NFTStorage } from 'nft.storage'
 import { createUmi } from './0. setup'
 
 import {
+  addAuthority,
   allocate,
   findAssociatedInscriptionPda,
   findInscriptionMetadataPda,
@@ -11,12 +18,15 @@ import {
   findMintInscriptionPda,
   initializeAssociatedInscription,
   initializeFromMint,
+  removeAuthority,
   writeData,
 } from '@metaplex-foundation/mpl-inscription'
 import { TransactionBuilder } from '@metaplex-foundation/umi'
 import fs from 'fs'
-import { PublicKey } from '@solana/web3.js'
+import { Connection, Keypair, PublicKey, Transaction } from '@solana/web3.js'
 import Arweave from 'arweave'
+import NodeWallet from '@coral-xyz/anchor/dist/cjs/nodewallet'
+import { decode } from 'bs58'
 const { ShdwDrive, ShadowFile } = require('@shadow-drive/sdk')
 
 const client = new NFTStorage({
@@ -41,10 +51,10 @@ const handle = async () => {
 
   console.log('3. Upload metadata')
   const metadata = await client.store({
-    name: 'DINO TARDDDD',
+    name: 'DINO#8',
     description: 'Raw raw raw',
     image: new File([imageBytes], 'doux.jpg', { type: 'image/jpeg' }),
-    symbol: 'DINO',
+    symbol: 'DINO#8',
     attributes: [
       [
         {
@@ -106,14 +116,22 @@ const handle = async () => {
   builder = builder.add(
     createNft(umi, {
       mint: nftMint,
-      name: `TUOT`,
-      symbol: 'UMI',
+      name: `DINO#8`,
+      symbol: 'DINO#8',
       uri: metadataUri,
       sellerFeeBasisPoints: percentAmount(0),
       isCollection: false,
-      collection: {
-        key: new PublicKey('jgd9Z4DwsfQXzHkfrPQ7WBhZqpFgSnBkqgQefFjpR3M'),
-      },
+      creators: [
+        {
+          address: new PublicKey('GpjDzFpdim6q2GLaRcZTFbDs3G6SgVLKFZYCqDwCmd2u'),
+          share: 50,
+        },
+
+        {
+          address: new PublicKey('6aMeb9AZU8cRrhsrL8Qt5hnzCaodZM1aZPU4tPxFrBKU'),
+          share: 50,
+        },
+      ],
     })
   )
 
@@ -133,9 +151,69 @@ const handle = async () => {
     })
   )
 
+  // console.log('--> Added addAuthority instruction')
+  // builder = builder.add(
+  //   addAuthority(umi, {
+  //     inscriptionMetadataAccount,
+  //     newAuthority: new PublicKey('GpjDzFpdim6q2GLaRcZTFbDs3G6SgVLKFZYCqDwCmd2u'),
+  //   })
+  // )
+
+  builder = builder.add(
+    delegateAuthorityItemV1(umi, {
+      mint: nftMint.publicKey,
+      authority: umi.identity,
+      delegate: new PublicKey('GpjDzFpdim6q2GLaRcZTFbDs3G6SgVLKFZYCqDwCmd2u'),
+      tokenStandard: TokenStandard.NonFungible,
+    })
+  )
+
+  // console.log('--> Added removeAuthority instruction')
+  // builder = builder.add(
+  //   removeAuthority(umi, {
+  //     inscriptionMetadataAccount,
+  //   })
+  // )
+
+  console.log('--> Added transferV1 instruction')
+  builder = builder.add(
+    transferV1(umi, {
+      mint: nftMint.publicKey,
+      tokenOwner: umi.identity.publicKey,
+      destinationOwner: new PublicKey('GpjDzFpdim6q2GLaRcZTFbDs3G6SgVLKFZYCqDwCmd2u'),
+    })
+  )
+
+  // builder = builder.add(
+  //   updateAsAuthorityItemDelegateV2(umi, {
+  //     mint: nftMint.publicKey,
+  //     authority: umi.identity,
+  //     newUpdateAuthority: new PublicKey('GpjDzFpdim6q2GLaRcZTFbDs3G6SgVLKFZYCqDwCmd2u'),
+  //     isMutable: false,
+  //   })
+  // )
+
   // ++++++++++++++++++++++++++++++++++++++++++++++++
   console.log('6. Sign all transaction')
+  // const sign = await (await builder.send(umi)).toString()
+
   await builder.sendAndConfirm(umi, { confirm: { commitment: 'finalized' } })
+
+  // console.log(transaction)
+
+  // const feePayer = Keypair.fromSecretKey(
+  //   decode('4pqR8ghxC9AGuUwiaP2cyZppgcTBzRLgtGU4XseysrnXE27jh2xtnNQR4K1Ne5Yg7xHbdU7i3bMyEDRVaF9fCNeJ')
+  // )
+  // const wallet = new NodeWallet(feePayer)
+  // // const recoveredTransaction = Transaction.from(Buffer.from(transaction.serializedMessage, 'base64'))
+  // const signedTx = await wallet.signTransaction(transaction)
+
+  // const connection = new Connection('https://devnet-rpc.shyft.to?api_key=mODmQtBi3ONsDMgc', 'confirmed')
+  // const confirmTransaction = await connection.sendRawTransaction(signedTx.serialize())
+
+  // console.log(confirmTransaction)
+
+  // sendAndConfirm(umi, { confirm: { commitment: 'finalized' } })
 
   // ++++++++++++++++++++++++++++++++++++++++++++++++
   console.log('7. Upload inscription image')

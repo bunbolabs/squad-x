@@ -1,5 +1,6 @@
 'use client'
 
+import { IRONFORGE_URL } from '@/services/ironforge'
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react'
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'
@@ -14,7 +15,7 @@ interface Props {
 export default function WalletAdapter({ children }: Props) {
   const network = WalletAdapterNetwork.Devnet
 
-  const endpoint = useMemo(() => clusterApiUrl(network), [network])
+  const endpoint = IRONFORGE_URL
 
   const wallets = useMemo(
     () => [new PhantomWalletAdapter()],

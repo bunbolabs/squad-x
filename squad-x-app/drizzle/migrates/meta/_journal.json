@@ -22,6 +22,20 @@
       "when": 1705707880498,
       "tag": "0002_cuddly_onslaught",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1705994750192,
+      "tag": "0003_oval_gravity",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1705995924308,
+      "tag": "0004_greedy_lethal_legion",
+      "breakpoints": true
     }
   ]
 }

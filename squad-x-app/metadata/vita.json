@@ -1,0 +1,18 @@
+{
+  "name": "VITA",
+  "description": "Vita vita vita vita vita!",
+  "image": "https://kzcrnvmbqviqohszvotu.supabase.co/storage/v1/object/public/dinos/vita.jpg",
+  "symbol": "DINO",
+  "attributes": [
+    [
+      {
+        "trait_type": "damage",
+        "value": "80"
+      },
+      {
+        "trait_type": "energy",
+        "value": "100"
+      }
+    ]
+  ]
+}

@@ -1,9 +1,10 @@
+import { dispatchMessage } from '@/utils'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { signIn, useSession } from 'next-auth/react'
-import React, { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Button } from './ui/button'
-import { dispatchMessage } from '@/utils'
+import Link from 'next/link'
 
 const connectButtonVariants: Variants = {
   hide: {
@@ -20,34 +21,25 @@ export default function SignInX() {
   const { publicKey } = useWallet()
   const { data: session } = useSession()
 
-  const [status, setStatus] = useState('')
-
   const handle = async () => {
     if (!session || !publicKey) return
 
     const res = await fetch(`/api/x/details?id=${(session as any).screenName}`)
     const data = await res.json()
 
-    setStatus('Catching a Dino...')
+    console.log(data)
 
-    const mintRes = await fetch(`/api/dino/mint`, {
+    await fetch(`/api/u/${publicKey.toString()}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ destination: publicKey.toString() }),
+      body: JSON.stringify({
+        username: data.userName,
+        fullName: data.fullName,
+        address: publicKey.toString(),
+        id: data.id,
+      }),
     })
 
-    const mintData = await mintRes.json()
-
-    console.log(mintData)
-
-    if (mintData) {
-      dispatchMessage('SQUAD-X-USER', JSON.stringify({ ...data, address: publicKey.toString() }))
-      setStatus('All set 🎉!')
-    } else {
-      setStatus('Failed to catching')
-    }
+    dispatchMessage('SQUAD-X-USER', JSON.stringify({ ...data, address: publicKey.toString() }))
   }
 
   useEffect(() => {
@@ -73,7 +65,9 @@ export default function SignInX() {
           )}
         </AnimatePresence>
       ) : (
-        <span>{status}</span>
+        <Link href={'/mint'} className="w-full">
+          <Button className="w-full">Catch a Dino</Button>
+        </Link>
       )}
     </>
   )
