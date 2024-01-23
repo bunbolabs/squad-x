@@ -15,7 +15,5 @@ export async function GET(request: Request, { params }: { params: { address: str
   const { address } = params
   const dino = await db.select().from(dinos).where(eq(dinos.user, address))
 
-  console.log(dino)
-
   return Response.json({ dino: dino[0] })
 }

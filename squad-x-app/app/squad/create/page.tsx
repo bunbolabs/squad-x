@@ -15,8 +15,8 @@ export default function Page() {
   const { data: session } = useSession()
 
   return (
-    <main className="w-screen h-screen flex items-center justify-center">
-      <Card className="w-[500px]">
+    <main className="absolute inset-0 h-screen flex items-center justify-center w-screen bg-black bg-[radial-gradient(#5d5e61_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]">
+      <Card className="w-[500px] shadow-2xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Create Squad</CardTitle>
           <CardDescription>First you need to connect your wallet!</CardDescription>
