@@ -23,10 +23,10 @@ const Popup = () => {
           <Me info={value} />
           {
             {
-              home: <Home />,
+              home: <Home user={value} />,
               quest: <Quest />,
               friend: <Friend />,
-              squad: <Squad user={value} />,
+              squad: <Squad />,
             }[tab]
           }
 

@@ -1,0 +1,1 @@
+ALTER TABLE "dinos" ADD COLUMN "xp" integer DEFAULT 0;

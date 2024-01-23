@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useChromeStorageSync } from 'use-chrome-storage'
 
 import { User } from '@/shared/types/user'
-import { computeXURL } from '@/shared/utils'
+import { computeAppURL, computeXURL } from '@/shared/utils'
 
 export default function Friend() {
   const [user] = useChromeStorageSync<User>('SQUAD-X-USER')
@@ -15,7 +15,7 @@ export default function Friend() {
   }
 
   const call = async () => {
-    const res = await fetch(`http://localhost:3000/api/friends/${user?.id}`, {
+    const res = await fetch(computeAppURL(`/api/friends/${user?.id}`), {
       method: 'GET',
     })
 
@@ -26,8 +26,6 @@ export default function Friend() {
   }
 
   useEffect(() => {
-    console.log('mounted')
-
     user && call()
   }, [user])
 

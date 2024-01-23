@@ -4,4 +4,5 @@ export interface User {
   userName: string
   address: string
   fullName: string
+  dino: string
 }

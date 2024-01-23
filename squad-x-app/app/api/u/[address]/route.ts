@@ -14,3 +14,16 @@ export async function POST(request: Request, { params }: { params: { address: st
 
   return Response.json({ user })
 }
+
+// export async function GET(request: Request, { params }: { params: { address: string } }) {
+//   const { address } = params
+//   // const user = await db.select().from(users).where(eq(users.address, address))
+//   // console.log(user)
+
+//   const user = await db.query.users.findMany({
+//     with: {
+//       dino: true,
+//     },
+//   })
+//   return Response.json({ user })
+// }

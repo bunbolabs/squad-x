@@ -8,5 +8,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
   const following = (await rettiwt.user.following(id)).list
   const friends = _.intersectionBy(followers, following, 'userName')
 
-  return Response.json({ friends, followers })
+  const filteredFollowers = _.differenceWith(followers, friends, _.isEqual)
+
+  return Response.json({ friends, followers: filteredFollowers })
 }
