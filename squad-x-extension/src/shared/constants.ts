@@ -10,3 +10,5 @@ export const SOLANA_ECOSYSTEMS = [
   'https://marinade.finance',
   'https://twitter.com',
 ]
+
+export const FOODS = ['hotdog', 'sandwich', 'potato'] as const
