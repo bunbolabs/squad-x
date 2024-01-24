@@ -11,8 +11,8 @@ import { decode } from 'bs58'
 import pMap from 'p-map'
 import { IRONFORGE_URL } from './ironforge'
 
-const ENDPOINT = IRONFORGE_URL
-const SECRET = decode(process.env.ADMIN_PRIVATE_KEY!)
+// const ENDPOINT = IRONFORGE_URL
+// const SECRET = decode(process.env.ADMIN_PRIVATE_KEY!)
 
 // export const createUmi = async () => {
 //   const umi = basecreateUmi(ENDPOINT).use(mplInscription())
