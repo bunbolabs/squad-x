@@ -2,13 +2,14 @@ import { dispatchMessage } from '@/utils'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { AnimatePresence, Variants, motion } from 'framer-motion'
 import { signIn, useSession } from 'next-auth/react'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Button } from './ui/button'
 import Link from 'next/link'
 import { Program } from '@coral-xyz/anchor'
 import { SquadX } from '@/lib/squad-x-idl'
 import { PublicKey } from '@solana/web3.js'
 import { SQUAD_X_PROGRAM_ADDRESS } from '@/constants'
+import { useRouter } from 'next/navigation'
 
 const connectButtonVariants: Variants = {
   hide: {
@@ -25,10 +26,30 @@ interface Props {
   program: Program<SquadX>
 }
 
-export default function SignInX({ program }: Props) {
+export default function CreateUser({ program }: Props) {
   const { publicKey } = useWallet()
   const { data: session } = useSession()
   const programId = useMemo(() => new PublicKey(SQUAD_X_PROGRAM_ADDRESS), [])
+
+  const [isExist, setIsExist] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!publicKey) return
+
+    const fetchUserAccount = async () => {
+      const [pda] = PublicKey.findProgramAddressSync([Buffer.from('USERS'), publicKey.toBuffer()], programId)
+      try {
+        const userAccount = await program.account.users.fetch(pda.toString())
+
+        setIsExist(true)
+      } catch (error) {
+        setIsExist(false)
+      }
+    }
+
+    fetchUserAccount()
+  }, [programId, publicKey])
 
   const handle = async () => {
     if (!session || !publicKey || !program) return
@@ -51,6 +72,8 @@ export default function SignInX({ program }: Props) {
       })
 
       dispatchMessage('SQUAD-X-USER', JSON.stringify({ ...data, address: publicKey.toString() }))
+
+      router.push('/mint')
     } catch (error) {
       console.log(error)
     }
@@ -62,47 +85,11 @@ export default function SignInX({ program }: Props) {
 
   return (
     <>
-      {!session && (
-        <AnimatePresence mode="wait">
-          {publicKey && (
-            <motion.div
-              className="w-full"
-              variants={connectButtonVariants}
-              initial="hide"
-              exit="hide"
-              animate={publicKey ? 'show' : 'hide'}
-            >
-              <Button className="w-full" onClick={() => signIn()}>
-                Connect X
-              </Button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      {!isExist && (
+        <Button className="w-full" onClick={() => handle()}>
+          Create User
+        </Button>
       )}
     </>
   )
 }
-
-// {/* <>
-// {!session ? (
-//   <AnimatePresence mode="wait">
-//     {publicKey && (
-//       <motion.div
-//         className="w-full"
-//         variants={connectButtonVariants}
-//         initial="hide"
-//         exit="hide"
-//         animate={publicKey ? 'show' : 'hide'}
-//       >
-//         <Button className="w-full" onClick={() => signIn()}>
-//           Connect X
-//         </Button>
-//       </motion.div>
-//     )}
-//   </AnimatePresence>
-// ) : (
-//   <Link href={'/mint'} className="w-full">
-//     <Button className="w-full">Catch a Dino</Button>
-//   </Link>
-// )}
-// </> */}

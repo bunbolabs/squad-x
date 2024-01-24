@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-declare_id!("9d8JDdyrY5GW8epND5r3SQovSJP6SxWrajvpPYPB3Mhi");
+declare_id!("243dp7ej927Q19rt7NezVaHiEGxC9Lqfz4fgGS2WaZM7");
 
 #[program]
 mod squad_x {
@@ -41,12 +41,15 @@ mod squad_x {
         badge: String,
     ) -> Result<()> {
         let squad = &mut ctx.accounts.squad;
+        let user = &mut ctx.accounts.user;
         squad.display_name = display_name;
         squad.motto = motto;
         squad.badge = badge;
         squad.level = 1;
         squad.members = 1;
         squad.owner = ctx.accounts.signer.key();
+
+        user.squad = squad.key();
 
         Ok(())
     }
@@ -91,6 +94,9 @@ pub struct CreateSquadAccount<'info> {
         space = 8 + 256 + 256 + 1 + 1 + 256 + 32,
     )]
     pub squad: Account<'info, Squads>,
+
+    #[account(mut)]
+    pub user: Account<'info, Users>,
 
     #[account(mut)]
     pub signer: Signer<'info>,
