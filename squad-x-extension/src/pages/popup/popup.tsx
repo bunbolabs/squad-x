@@ -23,7 +23,7 @@ const Popup = () => {
           <Me info={value} />
           {
             {
-              home: <Home user={value} />,
+              home: <Home />,
               quest: <Quest />,
               friend: <Friend />,
               squad: <Squad />,

@@ -8,6 +8,7 @@ export function computeXURL(handle: string) {
 
 export function computeAppURL(url: string) {
   return `http://localhost:3000/${url}`
+  // return `https://squad-x.vercel.app/${url}`
 }
 
 export function computeAssetURL(url: string) {

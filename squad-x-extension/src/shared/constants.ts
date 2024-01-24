@@ -11,4 +11,4 @@ export const SOLANA_ECOSYSTEMS = [
   'https://twitter.com',
 ]
 
-export const FOODS = ['hotdog', 'sandwich', 'potato'] as const
+export const FOODS = ['hotdog', 'sandwich', 'potato', 'dino'] as const

@@ -43,6 +43,13 @@
       "when": 1706003475448,
       "tag": "0005_bored_living_lightning",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1706090071225,
+      "tag": "0006_noisy_shape",
+      "breakpoints": true
     }
   ]
 }

@@ -19,7 +19,7 @@ export const dinos = pgTable('dinos', {
     .references(() => users.address),
   dino: text('dino').notNull().default(''),
   rank: text('rank').notNull().default(''),
-  xp: integer('xp').default(0),
+  xp: integer('xp').notNull().default(0),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
 })
@@ -27,12 +27,6 @@ export const dinos = pgTable('dinos', {
 export const usersRelations = relations(users, ({ one }) => ({
   dino: one(quests),
 }))
-
-// export const profileInfo = pgTable('profile_info', {
-//   id: serial('id').primaryKey(),
-//   userId: integer('user_id').references(() => users.id),
-//   metadata: jsonb('metadata'),
-// });
 
 export const quests = pgTable('quests', {
   id: text('id').notNull().primaryKey(),
