@@ -1,26 +1,13 @@
+import { SQUAD_X_PROGRAM_ADDRESS } from '@/constants'
+import { SquadX } from '@/lib/squad-x-idl'
 import { dispatchMessage } from '@/utils'
+import { Program } from '@coral-xyz/anchor'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { AnimatePresence, Variants, motion } from 'framer-motion'
-import { signIn, useSession } from 'next-auth/react'
+import { PublicKey } from '@solana/web3.js'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from './ui/button'
-import Link from 'next/link'
-import { Program } from '@coral-xyz/anchor'
-import { SquadX } from '@/lib/squad-x-idl'
-import { PublicKey } from '@solana/web3.js'
-import { SQUAD_X_PROGRAM_ADDRESS } from '@/constants'
-import { useRouter } from 'next/navigation'
-
-const connectButtonVariants: Variants = {
-  hide: {
-    opacity: 0,
-    y: -5,
-  },
-  show: {
-    opacity: 1,
-    y: 0,
-  },
-}
 
 interface Props {
   program: Program<SquadX>
@@ -61,6 +48,8 @@ export default function CreateUser({ program }: Props) {
       const [pda] = PublicKey.findProgramAddressSync([Buffer.from('USERS'), publicKey.toBuffer()], programId)
       await program.methods.createUserAccount(data.userName, 'Newbie').accounts({ user: pda }).rpc()
 
+      console.log(data)
+
       await fetch(`/api/u/${publicKey.toString()}`, {
         method: 'POST',
         body: JSON.stringify({
@@ -68,6 +57,8 @@ export default function CreateUser({ program }: Props) {
           fullName: data.fullName,
           address: publicKey.toString(),
           id: data.id,
+          account: pda.toString(),
+          picture: data.profileImage,
         }),
       })
 

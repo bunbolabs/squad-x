@@ -1,5 +1,3 @@
-import '../injected.css'
-
 import _ from 'lodash'
 import { useEffect, useRef, useState } from 'react'
 import { useChromeStorageSync } from 'use-chrome-storage'

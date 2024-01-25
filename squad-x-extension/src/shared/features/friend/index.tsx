@@ -39,8 +39,8 @@ export default function Friend() {
           friends.map((f, index) => (
             <div key={index} className="select-none">
               <button onClick={() => openX(f.userName)} className="relative flex h-full w-full items-center gap-[10px]">
-                <figure className="h-[50px] w-[50px] overflow-hidden rounded-xl">
-                  <img alt={`${f.fullName}'s avatar`} src={f.profileImage} />
+                <figure className="h-[50px] w-[50px]  rounded-xl">
+                  <img className="rounded-xl" alt={`${f.fullName}'s avatar`} src={f.profileImage} />
                 </figure>
 
                 <div className="flex flex-col items-start">
@@ -52,7 +52,7 @@ export default function Friend() {
                   Best Friends
                 </span>
                 <span className="absolute bottom-0 right-0 rounded-lg bg-[#FFD6AD] px-2 py-0.5 text-sm font-medium text-[#16120F]">
-                  123 FP
+                  270 FP
                 </span>
               </button>
 
@@ -65,8 +65,8 @@ export default function Friend() {
           followers.map((f, index) => (
             <div key={index} className="select-none">
               <button onClick={() => openX(f.userName)} className="relative flex h-full w-full items-center gap-[10px]">
-                <figure className="h-[50px] w-[50px] overflow-hidden rounded-xl">
-                  <img alt={`${f.fullName}'s avatar`} src={f.profileImage} />
+                <figure className="h-[50px] w-[50px]  rounded-xl">
+                  <img className="rounded-xl" alt={`${f.fullName}'s avatar`} src={f.profileImage} />
                 </figure>
 
                 <div className="flex flex-col items-start">

@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react'
-import { useChromeStorageLocal } from 'use-chrome-storage'
 
 import { shyft } from '@/services/shyft'
 import { SQUAD_X_TOKEN_MINT } from '@/shared/constants'
-import { User } from '@/shared/types/user'
 
-export default function Balance() {
+interface Props {
+  address: string
+}
+
+export default function Balance(props: Props) {
   const [balance, setBalance] = useState<number>(0)
-  const [user] = useChromeStorageLocal<User>('SQUAD-X-USER')
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchTokenBalance = async () => {
       setLoading(false)
-      if (!user) return
+      if (!props.address) return
 
       const response = await shyft.wallet.getTokenBalance({
         token: SQUAD_X_TOKEN_MINT,
-        wallet: user.address,
+        wallet: props.address,
       })
 
       setBalance(response.balance)
@@ -25,7 +26,7 @@ export default function Balance() {
     }
 
     fetchTokenBalance()
-  }, [user])
+  }, [props.address])
 
   return (
     <div className="rounded-2xl bg-[#E6D6FF] p-5">

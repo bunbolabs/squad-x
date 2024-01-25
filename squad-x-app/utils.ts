@@ -1,6 +1,10 @@
 import { TransactionBuilder, TransactionBuilderGroup, Umi, signAllTransactions } from '@metaplex-foundation/umi'
 
 export const dispatchMessage = (action: string, data: string) => {
+  console.log('Dispatched message to extensions!')
+
+  console.log(data)
+
   window.postMessage({ action, data }, '*')
 }
 

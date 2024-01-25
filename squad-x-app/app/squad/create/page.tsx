@@ -64,6 +64,18 @@ export default function Page() {
         .accounts({ user: userPda, squad: squadPda })
         .rpc()
 
+      console.log('Squad created successfully!')
+      const response = await fetch(`/api/squads/`, {
+        method: 'POST',
+        body: JSON.stringify({
+          name: nameInputRef.current.value,
+          motto: descriptionInputRef.current.value,
+          owner: publicKey.toString(),
+          account: squadPda.toString(),
+          badge: 'Dreamers',
+        }),
+      })
+
       setIsJoined(true)
     } catch (error) {
       setIsJoined(false)

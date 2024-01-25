@@ -12,3 +12,6 @@ export const SOLANA_ECOSYSTEMS = [
 ]
 
 export const FOODS = ['hotdog', 'sandwich', 'potato', 'dino'] as const
+
+export const SQUAD_X_PROGRAM_ADDRESS = '243dp7ej927Q19rt7NezVaHiEGxC9Lqfz4fgGS2WaZM7'
+export const IRONFORGE_API_KEY = '01HM291CVAMXP53HBNCY3VSNE9'

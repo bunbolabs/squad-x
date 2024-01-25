@@ -2,7 +2,6 @@ import { SQUAD_X_DINO_COLLECTION } from '@/constants'
 
 const CROSSMINT_API_KEY = process.env.CROSSMINT_API_KEY as string
 
-const CROSSMINT_URL = `https://staging.crossmint.com/api/2022-06-09/`
 const CROSSMINT_COLLECTION_URL = `https://staging.crossmint.com/api/2022-06-09/collections/`
 
 type CrossmintMintResponse = {

@@ -1,0 +1,1 @@
+ALTER TABLE "dinos" ADD COLUMN "picture" text DEFAULT '' NOT NULL;

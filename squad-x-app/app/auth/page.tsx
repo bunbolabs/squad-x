@@ -4,17 +4,16 @@ import SignInX from '@/components/sign-in-x'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import WalletList from '@/components/wallet-list'
 import { formatAddress } from '@/utils'
-import { useWallet } from '@solana/wallet-adapter-react'
+import { AnchorProvider, Program, setProvider } from '@coral-xyz/anchor'
+import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { SessionProvider } from 'next-auth/react'
-import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react'
-import { Program, Idl, AnchorProvider, setProvider, Wallet } from '@coral-xyz/anchor'
 
+import AlreadyHaveAccount from '@/components/already-have-account'
+import CreateUser from '@/components/create-user'
+import { SQUAD_X_PROGRAM_ADDRESS } from '@/constants'
 import { IDL } from '@/lib/squad-x-idl'
 import { PublicKey } from '@solana/web3.js'
-import { SQUAD_X_PROGRAM_ADDRESS } from '@/constants'
 import { useEffect, useMemo, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import CreateUser from '@/components/create-user'
 
 export default function Home() {
   const { publicKey } = useWallet()
@@ -48,7 +47,7 @@ export default function Home() {
     <SessionProvider>
       <main className="absolute inset-0 h-screen flex items-center justify-center w-screen bg-black bg-[radial-gradient(#5d5e61_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]">
         {isExist ? (
-          <Button>Already have an account</Button>
+          <AlreadyHaveAccount />
         ) : (
           <Card className="w-[400px]">
             <CardHeader className="space-y-1">

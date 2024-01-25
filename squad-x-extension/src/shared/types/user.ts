@@ -5,4 +5,5 @@ export interface User {
   address: string
   fullName: string
   dino: string
+  picture: string
 }
